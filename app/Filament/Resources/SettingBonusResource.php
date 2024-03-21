@@ -10,6 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -46,7 +47,10 @@ class SettingBonusResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('id')->label('#')->rowIndex(),
+                TextColumn::make('nama')->label('Nama Rentang')->searchable(),
+                TextColumn::make('mulai_dari')->label('Rentang')->formatStateUsing(fn($record) => "$record->mulai_dari - $record->sampai_ke"),
+                TextColumn::make('jumlah_bonus')->label('Bonus')->numeric()->prefix('Rp. ')->color('success')
             ])
             ->filters([
                 //

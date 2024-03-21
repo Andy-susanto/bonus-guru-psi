@@ -23,4 +23,9 @@ class guru extends Model
      */
     protected $guarded = [];
 
+    public function SubKriteria()
+    {
+        return $this->belongsToMany(Kriteria::class,'guru_has_kriteria','guru_id','kriteria_id');
+    }
+
 }

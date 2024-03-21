@@ -16,4 +16,9 @@ class ListSettingBonuses extends ListRecords
             Actions\CreateAction::make()->size('xs')->label('Tambahkan Data Baru')->icon('heroicon-s-plus-circle'),
         ];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }
