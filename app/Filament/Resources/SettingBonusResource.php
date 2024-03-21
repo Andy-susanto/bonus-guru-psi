@@ -6,12 +6,14 @@ use App\Filament\Resources\SettingBonusResource\Pages;
 use App\Filament\Resources\SettingBonusResource\RelationManagers;
 use App\Models\SettingBonus;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use LaraZeus\Quantity\Components\Quantity;
 
 class SettingBonusResource extends Resource
 {
@@ -33,7 +35,10 @@ class SettingBonusResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('nama')->label('Nama Rentang')->required(),
+                Quantity::make('mulai_dari')->numeric()->label('Mulai Dari')->required(),
+                Quantity::make('sampai_ke')->numeric()->label('Sampai Ke')->required(),
+                TextInput::make('jumlah_bonus')->currencyMask(thousandSeparator:'.',decimalSeparator:',',precision:0)->prefix('Rp.')->label('Jumlah Bonus')->required(),
             ]);
     }
 

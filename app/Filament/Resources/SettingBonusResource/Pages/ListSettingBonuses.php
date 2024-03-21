@@ -13,7 +13,7 @@ class ListSettingBonuses extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()->size('xs')->label('Tambahkan Data Baru')->icon('heroicon-s-plus-circle'),
         ];
     }
 }

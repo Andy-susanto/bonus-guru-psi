@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('alternatif', function (Blueprint $table) {
+        Schema::create('setting_bonus', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
-            $table->unsignedBigInteger('guru_id');
+            $table->string('nama');
+            $table->unsignedBigInteger('mulai_dari')->nullable();
+            $table->unsignedBigInteger('sampai_ke')->nullable();
+            $table->unsignedBigInteger('jumlah_bonus')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('alternatif');
+        Schema::dropIfExists('setting_bonus');
     }
 };

@@ -55,6 +55,7 @@ class GuruResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->label('#')->rowIndex(),
+                TextColumn::make('kode_guru')->searchable(),
                 TextColumn::make('nama_lengkap')->searchable(),
                 TextColumn::make('jk')->label('Jenis Kelamin')->badge()->color('info'),
                 TextColumn::make('alamat'),

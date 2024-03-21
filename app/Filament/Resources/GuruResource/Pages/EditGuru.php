@@ -21,4 +21,10 @@ class EditGuru extends EditRecord
     {
         return $this->getResource()::getUrl('index');
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $data['kode_guru'] = "A".str_pad($this->record->id,2,0,STR_PAD_LEFT);
+        return $data;
+    }
 }
