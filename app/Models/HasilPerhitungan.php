@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class guru extends Model
+class HasilPerhitungan extends Model
 {
     use HasFactory;
-
-
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'guru';
+    protected $table = 'hasil_perhitungan';
     /**
      * The attributes that aren't mass assignable.
      *
@@ -23,9 +21,8 @@ class guru extends Model
      */
     protected $guarded = [];
 
-    public function kriteria()
+    public function guru()
     {
-        return $this->belongsToMany(Kriteria::class,'guru_has_kriteria','guru_id','kriteria_id');
+        return $this->belongsTo(guru::class,'guru_id','id');
     }
-
 }

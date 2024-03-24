@@ -31,6 +31,7 @@ class UserPenilaian extends Component implements HasTable, HasForms
         $kriterias = Kriteria::all();
         $data = [
             TextColumn::make('id')->label('#')->rowIndex(),
+            TextColumn::make('kode_guru')->label('Kode Guru'),
             TextColumn::make('nama_lengkap')->label('Nama Lengkap')->searchable()
         ];
 

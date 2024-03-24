@@ -4,3 +4,4 @@
     @endphp
     {{$nilai ? $nilai->nilai : 0}}
 </div>
+
