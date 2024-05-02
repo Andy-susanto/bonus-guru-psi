@@ -18,6 +18,6 @@ class Penilaian extends Page
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Penggajian';
+        return 'Perhitungan';
     }
 }

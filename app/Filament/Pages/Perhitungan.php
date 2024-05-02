@@ -16,6 +16,6 @@ class Perhitungan extends Page
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Penggajian';
+        return 'Perhitungan';
     }
 }

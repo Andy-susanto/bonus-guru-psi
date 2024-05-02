@@ -55,12 +55,12 @@ class KriteriaResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->button()->size('xs'),
-                Tables\Actions\DeleteAction::make()->button()->size('xs'),
+                Tables\Actions\DeleteAction::make()->button()->size('xs')->action(function($record){
+                    $record->subkriteria()->delete();
+                    $record->delete();
+                }),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
     }
 

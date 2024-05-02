@@ -25,4 +25,9 @@ class Kriteria extends Model
     {
         return $this->belongsTo(Tipe::class);
     }
+
+    public function subkriteria()
+    {
+        return $this->hasMany(SubKriteria::class);
+    }
 }

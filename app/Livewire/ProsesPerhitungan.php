@@ -13,6 +13,7 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Livewire\Component;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ViewColumn;
 use Illuminate\Support\Facades\DB;
 
 class ProsesPerhitungan extends Component implements HasTable, HasForms
@@ -20,9 +21,19 @@ class ProsesPerhitungan extends Component implements HasTable, HasForms
     use InteractsWithTable;
     use InteractsWithForms;
 
+    public $matrikKeputusan;
+    public $matrikNormalisasi;
+    public $mean;
+    public $variasiPreferensi;
+    public $totalKriteria;
+    public $omega;
+    public $bobot;
+
     public function render()
     {
-        return view('livewire.proses-perhitungan');
+        $kriteria = Kriteria::all();
+        $alternatif = guru::pluck('kode_guru')->toArray();
+        return view('livewire.proses-perhitungan',compact('kriteria','alternatif'));
     }
 
     public function proses()
@@ -41,6 +52,8 @@ class ProsesPerhitungan extends Component implements HasTable, HasForms
                 $Xij[$ka][$kk] = $krit->nilai;
             }
         }
+
+        $this->matrikKeputusan = $Xij;
 
         // normalisasi matriks keputusan
         $rows = count($Xij);
@@ -64,6 +77,8 @@ class ProsesPerhitungan extends Component implements HasTable, HasForms
             }
         }
 
+        $this->matrikNormalisasi = $Nij;
+
         // menjumlahkan elemen tiap kolom matriks
         $EN = [];
         for ($i = 0; $i < $cols; $i++) {
@@ -80,6 +95,7 @@ class ProsesPerhitungan extends Component implements HasTable, HasForms
             $N[] = $e / $rows;
         }
 
+        $this->mean = $N;
 
 
         // hitung variasi preferensi
@@ -92,6 +108,9 @@ class ProsesPerhitungan extends Component implements HasTable, HasForms
         }
 
 
+        $this->variasiPreferensi = $Tj;
+
+
         // hitung total tiap kriteria
         $TTj = [];
         for ($i = 0; $i < $cols; $i++) {
@@ -102,12 +121,16 @@ class ProsesPerhitungan extends Component implements HasTable, HasForms
             $TTj[] = $jumlah;
         }
 
+        $this->totalKriteria = $TTj;
+
 
         // menentukan penyimpangan nilai preferensi
         $Omega = [];
         foreach ($TTj as  $ttj) {
             $Omega[] = 1 - $ttj;
         }
+
+        $this->omega = $Omega;
 
         // total penyimpangan nilai preferensi
         $EOmega = array_sum($Omega);
@@ -117,6 +140,8 @@ class ProsesPerhitungan extends Component implements HasTable, HasForms
         foreach ($Omega as $o) {
             $Wj[] = $o / $EOmega;
         }
+
+        $this->bobot = $Wj;
 
         // menghitung PSI
         $ThetaI = [];
@@ -164,8 +189,8 @@ class ProsesPerhitungan extends Component implements HasTable, HasForms
                     TextColumn::make('nilai')->label('Nilai')->searchable(),
                     TextColumn::make('bonus')->numeric()->prefix('Rp.')->label('Bonus Gaji')->searchable(),
                     TextColumn::make('guru.gaji_pokok')->numeric()->prefix('Rp.')->label('Gaji Pokok')->searchable(),
+                    ViewColumn::make('total_gaji')->view('perhitungan.totalGaji')
                 ]
-
             );
     }
 }

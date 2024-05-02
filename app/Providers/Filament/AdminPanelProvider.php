@@ -40,6 +40,10 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
+            ->navigationGroups([
+                'Data Master',
+                'Perhitungan'
+            ])
             ->resources([
                 config('filament-logger.activity_resource')
             ])

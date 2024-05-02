@@ -24,7 +24,7 @@ class SettingBonusResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Penggajian';
+        return 'Perhitungan';
     }
 
     public static function getNavigationLabel(): string

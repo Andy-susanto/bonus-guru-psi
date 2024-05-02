@@ -25,7 +25,7 @@ class guru extends Model
 
     public function kriteria()
     {
-        return $this->belongsToMany(Kriteria::class,'guru_has_kriteria','guru_id','kriteria_id');
+        return $this->belongsToMany(Kriteria::class,'guru_has_kriteria','guru_id','kriteria_id')->withPivot(['nilai','periode']);
     }
 
 }
